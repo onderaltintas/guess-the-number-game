@@ -1,0 +1,51 @@
+	String.prototype.replaceAt=function(index, replacement) {
+		return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+	}
+
+	function Game(){
+		this.guesser ="";
+		this.holder = "";
+	}
+
+	Game.prototype.setNumberInMind = function(number){
+		this.numberInMind = number;
+	}
+
+	Game.prototype.guess = function(guessedNumber){
+		var numberInMindClone = this.numberInMind.toString();
+		var positives = 0;
+		var negatives = 0;
+		for(var i = 0; i < guessedNumber.length; i++){
+			var guessedDigit = guessedNumber[i];
+			var digitInMind = numberInMindClone[i];
+			if(guessedDigit === digitInMind && guessedDigit!== "_" && digitInMind!== "_"){
+				positives++;
+				numberInMindClone = numberInMindClone.replaceAt(i,'_');
+				guessedNumber = guessedNumber.replaceAt(i,'_');
+			}
+		}
+		
+		for(var i = 0; i < guessedNumber.length; i++){
+			var characterIndex = numberInMindClone.indexOf(guessedNumber[i]);
+			if(guessedNumber[i] !== '_' && characterIndex !== -1){
+				numberInMindClone = numberInMindClone.replaceAt(characterIndex,'_');
+				negatives++;
+			}
+		}
+		
+		return {positives: positives, negatives: negatives};
+	}
+
+
+
+	var test = function(guessedNumber, numberInMind){
+		var g = new Game();
+		g.setNumberInMind(numberInMind);
+		console.log(JSON.stringify(g.guess(guessedNumber)));
+	}
+
+	test("1234","3333");
+	test("7725","1234");
+	test("7774","7744");
+	test("2155","5512");
+	test("2155","5012");
