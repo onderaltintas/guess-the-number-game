@@ -12,6 +12,10 @@
 	}
 
 	Game.prototype.guess = function(guessedNumber){
+		if(this.numberInMind === guessedNumber){
+			return {positives: 4, negatives: 0};
+		}
+		
 		var numberInMindClone = this.numberInMind.toString();
 		var positives = 0;
 		var negatives = 0;
