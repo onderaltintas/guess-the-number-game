@@ -22,7 +22,7 @@
 		for(var i = 0; i < guessedNumber.length; i++){
 			var guessedDigit = guessedNumber[i];
 			var digitInMind = numberInMindClone[i];
-			if(guessedDigit === digitInMind && guessedDigit!== "_" && digitInMind!== "_"){
+			if(guessedDigit === digitInMind){
 				positives++;
 				numberInMindClone = numberInMindClone.replaceAt(i,'_');
 				guessedNumber = guessedNumber.replaceAt(i,'_');
